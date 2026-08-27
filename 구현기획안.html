@@ -120,11 +120,15 @@ td.c,th.c{text-align:center}
 .gr .ex{font-size:.84rem;color:var(--ink-2)}
 
 /* DIAGRAM */
-.diag{background:var(--surface-3);border:1px solid var(--line);border-radius:11px;padding:22px;display:flex;flex-direction:column;gap:14px;align-items:center}
+.diag{background:var(--surface-3);border:1px solid var(--line);border-radius:11px;padding:22px;display:flex;flex-direction:column;gap:14px;align-items:center;width:100%}
 .dgrow{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:100%}
-.dbox{background:var(--surface);border:1px solid var(--line-2);border-radius:9px;padding:13px 17px;text-align:center;flex:1;min-width:150px}
+.dbox{background:var(--surface);border:1px solid var(--line-2);border-radius:9px;padding:13px 17px;text-align:center;flex:1;min-width:0}
+.dgrow > .dbox{min-width:150px}
+/* .diag is a COLUMN flex container — flex-basis there means HEIGHT, not width.
+   Direct children must size with width, never with flex-basis. */
+.diag > .dbox{flex:0 0 auto;width:100%;max-width:none}
 .dbox .t{font-family:"Black Han Sans",sans-serif;font-size:1.05rem}
-.dbox .s{font-size:.76rem;color:var(--ink-3);margin-top:3px;line-height:1.45}
+.dbox .s{font-size:.76rem;color:var(--ink-3);margin-top:3px;line-height:1.45;overflow-wrap:anywhere}
 .dbox.hot{border-color:var(--hot-line);background:var(--hot-soft)}
 .dbox.hot .t{color:var(--hot)}
 .dbox.dp{border-color:var(--deep-line);background:var(--deep-soft)}
@@ -373,8 +377,8 @@ td.c,th.c{text-align:center}
     <h2>축 체계 — 18개</h2>
 
     <div class="diag">
-      <div class="dbox" style="flex:0 0 100%;max-width:none"><div class="t" style="font-size:.95rem">공통 6축</div><div class="s"><code>DOM</code> <code>SPD</code> <code>EXP</code> <code>PLN</code> <code>OPN</code> <code>EMP</code> — 네 카테고리 공유</div></div>
-      <div class="dbox" style="flex:0 0 100%;max-width:none"><div class="t" style="font-size:.95rem">전용 3축 × 4</div><div class="s">팀플 3 · 합석 3 · 낮 3 · 밤 3 — 카테고리마다 다름</div></div>
+      <div class="dbox" style="width:100%;flex:0 0 auto;max-width:none"><div class="t" style="font-size:.95rem">공통 6축</div><div class="s"><code>DOM</code> <code>SPD</code> <code>EXP</code> <code>PLN</code> <code>OPN</code> <code>EMP</code> — 네 카테고리 공유</div></div>
+      <div class="dbox" style="width:100%;flex:0 0 auto;max-width:none"><div class="t" style="font-size:.95rem">전용 3축 × 4</div><div class="s">팀플 3 · 합석 3 · 낮 3 · 밤 3 — 카테고리마다 다름</div></div>
       <div class="darr">▼</div>
       <div class="dgrow" style="max-width:560px">
         <div class="dbox hot"><div class="t">유 형</div><div class="s">공통 3축만 — <code>DOM×PLN×EXP</code><br><b>절대값</b> · 남과 무관</div></div>
@@ -400,13 +404,17 @@ td.c,th.c{text-align:center}
     <h4>카테고리별 표시 라벨 — 레이더에 들어가는 문구</h4>
     <div class="tw"><table>
       <tr><th style="width:64px">코드</th><th>팀플</th><th>합석</th><th>낮</th><th>밤</th></tr>
-      <tr><td><code>DOM</code></td><td>판을 끌고 간다</td><td>자리를 만든다</td><td>데이트를 제안한다</td><td>먼저 다가간다</td></tr>
-      <tr><td><code>SPD</code></td><td>일단 지른다</td><td>첫마디가 빠르다</td><td>마음이 빠르다</td><td>속도가 빠르다</td></tr>
+      <tr><td><code>DOM</code></td><td>판을 끌고 간다</td><td>대화를 돌린다</td><td>데이트를 제안한다</td><td>먼저 다가간다</td></tr>
+      <tr><td><code>SPD</code></td><td>일단 지른다</td><td>첫마디가 빠르다</td><td>마음이 빠르다</td><td>망설이지 않는다</td></tr>
       <tr><td><code>EXP</code></td><td>할 말은 한다</td><td>돌려 말하지 않는다</td><td>좋으면 좋다고 한다</td><td>원하는 걸 말한다</td></tr>
-      <tr><td><code>PLN</code></td><td>정해두고 움직인다</td><td>자리를 짜온다</td><td>계획한 데이트</td><td>흐름을 만든다</td></tr>
-      <tr><td><code>OPN</code></td><td>새로운 방식</td><td>처음 보는 자리</td><td>안 해본 데이트</td><td>새로운 시도</td></tr>
+      <tr><td><code>PLN</code></td><td>정해두고 움직인다</td><td>2차를 정해둔다</td><td>계획한 데이트</td><td>미리 그려둔다</td></tr>
+      <tr><td><code>OPN</code></td><td>새로운 방식</td><td>모르는 쪽으로 간다</td><td>안 해본 데이트</td><td>새로운 시도</td></tr>
       <tr><td><code>EMP</code></td><td>사람 먼저</td><td>분위기를 살핀다</td><td>기분을 먼저 본다</td><td>상대를 먼저 본다</td></tr>
     </table></div>
+    <p style="font-size:.88rem;color:var(--ink-2)">라벨은 축의 <b>5.0 쪽</b>을 가리킨다. 레이더에서 바깥으로 갈수록 이 라벨에 가깝다.</p>
+
+    <div class="note g"><b>합석 라벨은 이미 앉아 있는 상태를 전제로 쓴다.</b><br>
+      "자리를 만든다" "자리를 짜온다" 같은 문구는 <b>합석이 성사되기 전</b> 얘기라 리포트에서 아무 정보도 못 준다. 합석 카테고리의 모든 라벨과 문항은 <b>앉은 다음부터 일어날 때까지</b> 안에서만 쓴다.</div>
 
     <h3>카테고리 전용 3축</h3>
     <div class="tw"><table>
@@ -420,10 +428,15 @@ td.c,th.c{text-align:center}
       <tr><td rowspan="3"><b>낮</b></td><td><code>DY_FRQ</code></td><td>연락 텀</td><td>뜸해도 괜찮다</td><td>자주 해야 한다</td></tr>
       <tr><td><code>DY_AFF</code></td><td>애정 표현</td><td>행동으로</td><td>말로</td></tr>
       <tr><td><code>DY_RCV</code></td><td>회복 속도</td><td>시간이 필요하다</td><td>그날 안에 푼다</td></tr>
-      <tr><td rowspan="3"><b>밤</b></td><td><code>NT_PCE</code></td><td>속도</td><td>천천히</td><td>빠르게</td></tr>
+      <tr><td rowspan="3"><b>밤</b></td><td><code>NT_MOD</code></td><td>분위기 의존도</td><td>분위기가 있어야 한다</td><td>분위기랑 상관없다</td></tr>
       <tr><td><code>NT_LED</code></td><td>리드·팔로우</td><td>맞춰준다</td><td>이끈다</td></tr>
       <tr><td><code>NT_OPN</code></td><td>개방도</td><td>조심스럽다</td><td>거리낌 없다</td></tr>
     </table></div>
+
+    <div class="note"><b><code>NT_PCE</code>(속도)를 뺐다. 공통 <code>SPD</code>와 같은 걸 재고 있었다.</b><br>
+      <code>SPD</code>는 "재보고 간다 ↔ 일단 지른다"고 밤 라벨이 "속도가 빠르다"였다. 전용 축 <code>NT_PCE</code>도 "천천히 ↔ 빠르게"였다.<br>
+      <b>두 축이 같은 걸 재면 궁합 계산에서 그 방향이 이중으로 가중된다.</b> 그리고 "속도"가 무엇의 속도인지 — 그날 진도인지, 관계 진전인지 — 읽는 사람마다 달라진다.<br>
+      그래서 <code>SPD</code> 밤 라벨을 <em>"망설이지 않는다"</em> 로 못박고, 전용 축은 겹치지 않는 <b><code>NT_MOD</code> 분위기 의존도</b>로 교체했다.</div>
 
     <div class="note d"><code>TP_CFL</code>은 원래 회피/중재/직면 3분류였다. <b>축은 1차원이어야 하므로</b> 회피↔직면으로 두고 <b>2.5 부근을 중재형으로 해석</b>한다. 리포트 문구에서만 "중재형"으로 표시한다.</div>
 
@@ -853,8 +866,8 @@ DY_RCV  다투고 헤어졌다.
 <b>밤 NT</b>   노골적인 표현은 쓰지 않는다. 상상하게 두되 문장은 은근하게.
 DOM     분위기가 만들어졌다.
         A 내가 먼저 움직인다 / B 상대가 움직이길 기다린다
-SPD     오늘 처음으로 둘만 있다.
-        A 흐름대로 간다 / B 오늘은 여기까지가 좋다
+SPD     할까 말까 싶은 순간이 왔다.
+        A 일단 한다 / B 한 박자 쉰다
 EXP     원하는 게 있다.
         A 말한다 / B 티를 낸다
 PLN     오늘 밤을 어떻게 그렸나?
@@ -863,8 +876,8 @@ OPN     상대가 안 해본 걸 제안했다.
         A 재밌겠다 / B 조금 부담된다
 EMP     상대가 오늘 좀 지쳐 보인다.
         A 오늘은 그냥 쉬자고 한다 / B 기분 풀리게 해주고 싶다        ← A가 EMP +
-NT_PCE  둘 사이 속도는?
-        A 조금 더 빨라도 된다 / B 지금이 딱 좋다
+NT_MOD  분위기가 안 잡힌 날이다.
+        A 그래도 상관없다 / B 그런 날은 그냥 넘어간다
 NT_LED  누가 이끄는 편인가?
         A 대체로 내가 / B 대체로 상대가
 NT_OPN  이런 얘기를 꺼내는 게?
@@ -977,15 +990,15 @@ AxisDelta                        LogEvent
     <h2>리포트 — 코드 1벌 + 사전 4벌</h2>
 
     <div class="diag">
-      <div class="dbox" style="flex:0 0 100%;max-width:none"><div class="t" style="font-size:.95rem">축 레이어</div><div class="s">9축 값 × 카테고리</div></div>
+      <div class="dbox" style="width:100%;flex:0 0 auto;max-width:none"><div class="t" style="font-size:.95rem">축 레이어</div><div class="s">9축 값 × 카테고리</div></div>
       <div class="darr">▼</div>
-      <div class="dbox hot" style="flex:0 0 100%;max-width:none"><div class="t" style="font-size:.95rem">판정 레이어</div><div class="s">유형 / 칭호 / 궁합 등급 — <b>전부 룰. LLM 안 씀</b></div></div>
+      <div class="dbox hot" style="width:100%;flex:0 0 auto;max-width:none"><div class="t" style="font-size:.95rem">판정 레이어</div><div class="s">유형 / 칭호 / 궁합 등급 — <b>전부 룰. LLM 안 씀</b></div></div>
       <div class="darr">▼</div>
-      <div class="dbox" style="flex:0 0 100%;max-width:none"><div class="t" style="font-size:.95rem">사전 레이어</div><div class="s">카테고리별 표시 문구 — 텍스트 파일 4개</div></div>
+      <div class="dbox" style="width:100%;flex:0 0 auto;max-width:none"><div class="t" style="font-size:.95rem">사전 레이어</div><div class="s">카테고리별 표시 문구 — 텍스트 파일 4개</div></div>
       <div class="darr">▼</div>
-      <div class="dbox dp" style="flex:0 0 100%;max-width:none"><div class="t" style="font-size:.95rem">LLM 레이어</div><div class="s">서술 문단 · 궁합 이유 · 팀 총평 — <b>세션당 1회</b></div></div>
+      <div class="dbox dp" style="width:100%;flex:0 0 auto;max-width:none"><div class="t" style="font-size:.95rem">LLM 레이어</div><div class="s">서술 문단 · 궁합 이유 · 팀 총평 — <b>세션당 1회</b></div></div>
       <div class="darr">▼</div>
-      <div class="dbox" style="flex:0 0 100%;max-width:none"><div class="t" style="font-size:.95rem">렌더 레이어</div><div class="s">리포트 화면 · 공유 카드 — <b>코드 1벌</b></div></div>
+      <div class="dbox" style="width:100%;flex:0 0 auto;max-width:none"><div class="t" style="font-size:.95rem">렌더 레이어</div><div class="s">리포트 화면 · 공유 카드 — <b>코드 1벌</b></div></div>
     </div>
 
     <h3>사전 스키마 — 카테고리 추가 = 이 파일 하나</h3>
